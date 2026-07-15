@@ -38,12 +38,12 @@
     "yjs": "^13.6.31"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.1.1",
     "@types/ws": "^8.18.1",
-    "esbuild": "^0.25.12",
+    "esbuild": "^0.28.1",
     "tsx": "^4.20.3",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "packageManager": "pnpm@11.7.0",
   "license": "MIT",
