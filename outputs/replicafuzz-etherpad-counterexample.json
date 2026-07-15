@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-07-15T21:06:55.515Z",
+  "command": "pnpm proof:etherpad -- --replay output/playwright/etherpad-counterexample.json",
+  "seed": 73000,
+  "replayPath": "ddmin/6:8,1:2,1:2,2:3",
+  "fixture": "etherpad",
+  "clients": 3,
+  "originalSteps": 8,
+  "minimizedSteps": 3,
+  "schedule": [
+    {
+      "kind": "offline",
+      "client": 1
+    },
+    {
+      "kind": "online",
+      "client": 1
+    },
+    {
+      "kind": "act",
+      "client": 1,
+      "action": {
+        "type": "append",
+        "text": "[[rf-73000-2]]"
+      }
+    }
+  ],
+  "failure": {
+    "invariant": "semantic-action-effect",
+    "message": "issued append \"[[rf-73000-2]]\" had no immediate editor effect",
+    "snapshots": {
+      "client-1": {
+        "value": 232,
+        "pending": 0,
+        "revision": 0,
+        "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad"
+      },
+      "client-2": {
+        "value": 232,
+        "pending": 0,
+        "revision": 0,
+        "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad"
+      },
+      "client-3": {
+        "value": 232,
+        "pending": 0,
+        "revision": 0,
+        "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad"
+      }
+    }
+  },
+  "timeline": [
+    {
+      "index": 0,
+      "elapsedMs": 2276,
+      "step": {
+        "kind": "offline",
+        "client": 1
+      }
+    },
+    {
+      "index": 1,
+      "elapsedMs": 2278,
+      "step": {
+        "kind": "online",
+        "client": 1
+      }
+    },
+    {
+      "index": 2,
+      "elapsedMs": 3634,
+      "step": {
+        "kind": "act",
+        "client": 1,
+        "action": {
+          "type": "append",
+          "text": "[[rf-73000-2]]"
+        }
+      }
+    }
+  ]
+}

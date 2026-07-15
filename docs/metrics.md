@@ -29,3 +29,9 @@ included. Dependency installation and the shared browser/server startup are not.
 The baseline is local commit `5c1e2cc`, containing the generic runner and three
 fixtures. UTC start/end timestamps, core diff size, added fixture files, and test
 command are recorded in `evidence/fourth-app-integration.json`.
+
+The unfamiliar-app clock starts at the Etherpad source clone and ends after the
+adapter, tests, ten-schedule campaign, shrink, five replays, and targeted
+upstream-test review. It is recorded separately in
+`outputs/replicafuzz-etherpad-proof.json`; it must not be substituted for the
+original synthetic fourth-fixture metric.

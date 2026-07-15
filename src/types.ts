@@ -1,11 +1,10 @@
 import type { BrowserContext, Page } from "playwright";
 
-export type FixtureName = "websocket" | "sse" | "rest" | "storage" | "yjs";
+export type FixtureName = "websocket" | "sse" | "rest" | "storage" | "yjs" | "etherpad";
 
-export type SemanticAction = {
-  type: "increment";
-  amount: number;
-};
+export type SemanticAction =
+  | { type: "increment"; amount: number }
+  | { type: "append"; text: string };
 
 export type ScheduleStep =
   | { kind: "act"; client: number; action: SemanticAction }
@@ -24,6 +23,7 @@ export type CanonicalSnapshot = {
   value: number;
   pending: number;
   revision: number;
+  document?: string;
 };
 
 export type ClientHandle = {

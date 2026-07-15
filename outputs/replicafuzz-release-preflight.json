@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-15T20:06:10.737Z",
+  "generatedAt": "2026-07-15T21:13:35.763Z",
   "status": "ready_for_github_alpha",
   "publishState": "not_published_by_preflight",
   "package": {
     "name": "replicafuzz",
-    "version": "0.1.0-alpha.1",
-    "archiveSha256": "1ed4ba356c3b77951ec548fd12ccc2d3c3cd187e6770a2e962bc68850749aabc"
+    "version": "0.1.0-alpha.2",
+    "archiveSha256": "71f007fc0583f7fae769fecc0cfeaf7c68a4a2df340da537fd4f8b3860a1e7ab"
   },
   "checks": [
     {
@@ -17,7 +17,7 @@
     {
       "name": "alpha-version",
       "status": "pass",
-      "detail": "0.1.0-alpha.1"
+      "detail": "0.1.0-alpha.2"
     },
     {
       "name": "publishable",
@@ -42,12 +42,17 @@
     {
       "name": "package-smoke",
       "status": "pass",
-      "detail": "1ed4ba356c3b77951ec548fd12ccc2d3c3cd187e6770a2e962bc68850749aabc"
+      "detail": "71f007fc0583f7fae769fecc0cfeaf7c68a4a2df340da537fd4f8b3860a1e7ab"
     },
     {
       "name": "real-yjs-target",
       "status": "pass",
       "detail": "This validates an external CRDT library in a purpose-built browser target, not an unfamiliar third-party production application."
+    },
+    {
+      "name": "external-etherpad-target",
+      "status": "pass",
+      "detail": "35.1 minutes; 5/5 minimized replays"
     },
     {
       "name": "public-name-collision",
@@ -108,12 +113,23 @@
       "name": "file:dist/evidence/fourth-app-integration.json",
       "status": "pass",
       "detail": "present"
+    },
+    {
+      "name": "file:dist/integrations/etherpad/adapter.js",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:outputs/replicafuzz-etherpad-counterexample.json",
+      "status": "pass",
+      "detail": "present"
     }
   ],
   "blockers": [],
   "boundaries": [
     "This is an offline publication preflight; it does not create a repository, push, tag, release, or npm package.",
     "The Yjs target is an external sync library in a purpose-built browser fixture, not a third-party production application.",
+    "The Etherpad target is one unfamiliar production application under a local default configuration, not broad portability proof.",
     "The five original gates remain synthetic-fixture evidence.",
     "The ReplicaFuzz name check is superficial and is not legal or trademark clearance."
   ]

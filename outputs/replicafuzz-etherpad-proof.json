@@ -1,0 +1,529 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-15T21:06:55.520Z",
+  "target": {
+    "name": "Etherpad",
+    "version": "3.3.2",
+    "upstream": "https://github.com/ether/etherpad",
+    "commit": "3c90fa07c3a1e1c52c782932e21d70f4628bfb41",
+    "configuration": "official source build, default local rusty.db, anonymous public pads"
+  },
+  "campaign": {
+    "startedAt": "2026-07-15T21:02:43.736Z",
+    "runs": 10,
+    "clients": 3,
+    "passed": 0,
+    "failed": 10,
+    "errors": 0,
+    "wallMs": 251779
+  },
+  "integrationEffort": {
+    "startedAt": "2026-07-15T20:31:51Z",
+    "completedAt": "2026-07-15T21:06:55.520Z",
+    "elapsedSeconds": 2105,
+    "elapsedMinutes": 35.1,
+    "includes": "upstream selection, source clone, dependency install, application build, adapter implementation, tests, campaign, shrinking, replay, and source-test audit"
+  },
+  "controls": {
+    "realBrowser": [
+      "offline",
+      "online",
+      "reload",
+      "page death",
+      "relaunch"
+    ],
+    "inferred": [
+      "quiescence from equal stable text, equal collaboration revision, and no unaccepted commit"
+    ],
+    "unsupported": [
+      "packet drop",
+      "packet delay",
+      "clock injection",
+      "server process death"
+    ]
+  },
+  "counterexample": {
+    "seed": 73000,
+    "originalSteps": 8,
+    "minimizedSteps": 3,
+    "artifactPath": "output/playwright/etherpad-counterexample.json",
+    "publicArtifactPath": "outputs/replicafuzz-etherpad-counterexample.json",
+    "replayed": 5,
+    "replayAttempts": 5,
+    "failures": [
+      {
+        "invariant": "semantic-action-effect",
+        "message": "issued append \"[[rf-73000-2]]\" had no immediate editor effect",
+        "snapshots": {
+          "client-1": {
+            "value": 260,
+            "pending": 0,
+            "revision": 2,
+            "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+          },
+          "client-2": {
+            "value": 260,
+            "pending": 0,
+            "revision": 2,
+            "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+          },
+          "client-3": {
+            "value": 260,
+            "pending": 0,
+            "revision": 2,
+            "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+          }
+        }
+      },
+      {
+        "invariant": "semantic-conservation",
+        "message": "token \"[[rf-73000-2]]\" appears 0 times instead of once",
+        "snapshots": {
+          "client-1": {
+            "value": 260,
+            "pending": 0,
+            "revision": 2,
+            "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+          },
+          "client-2": {
+            "value": 260,
+            "pending": 0,
+            "revision": 2,
+            "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+          },
+          "client-3": {
+            "value": 260,
+            "pending": 0,
+            "revision": 2,
+            "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+          }
+        }
+      }
+    ]
+  },
+  "sourceTestAudit": {
+    "scope": "targeted grep and review of Etherpad 3.3.2 frontend-new, frontend, and backend tests",
+    "relevantExistingCoverage": [
+      "unaccepted_commit_warning.spec.ts checks commit acknowledgement and a simulated pending-commit disconnect warning",
+      "pad_modal.js checks that a simulated disconnected state disables the editor",
+      "xxauto_reconnect.js checks timer-driven reconnect reload behavior",
+      "padHelper.ts waits for initial contenteditable readiness and documents silently dropped input during initial load"
+    ],
+    "equivalentRealNetworkReconnectTypingTestFound": false,
+    "boundary": "This is a targeted source-test comparison, not an exhaustive coverage proof; maintainer confirmation is still required."
+  },
+  "verdict": "ReplicaFuzz found a minimized, reproducible Etherpad UI-readiness failure after a real browser reconnect; targeted source-test review found no equivalent case, but maintainer confirmation is still required.",
+  "boundaries": [
+    "This is one unfamiliar open-source production application, not broad production portability.",
+    "Runs use a local default Etherpad configuration without plugins, authentication, reverse proxies, or a production database.",
+    "An invariant failure is not called an Etherpad bug until the minimized replay is inspected against expected product behavior."
+  ],
+  "runs": [
+    {
+      "seed": 73000,
+      "status": "failed",
+      "durationMs": 4575,
+      "failures": [
+        {
+          "invariant": "semantic-action-effect",
+          "message": "issued append \"[[rf-73000-2]]\" had no immediate editor effect",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+            }
+          }
+        },
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73000-2]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73000-1]][[rf-73000-0]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73001,
+      "status": "failed",
+      "durationMs": 3884,
+      "failures": [
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73001-0]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73001-1]][[rf-73001-2]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73001-1]][[rf-73001-2]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73001-1]][[rf-73001-2]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73002,
+      "status": "failed",
+      "durationMs": 4114,
+      "failures": [
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73002-0]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73002-2]][[rf-73002-1]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73002-2]][[rf-73002-1]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73002-2]][[rf-73002-1]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73003,
+      "status": "failed",
+      "durationMs": 4339,
+      "failures": [
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73003-0]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73003-2]][[rf-73003-1]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73003-2]][[rf-73003-1]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73003-2]][[rf-73003-1]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73004,
+      "status": "failed",
+      "durationMs": 4384,
+      "failures": [
+        {
+          "invariant": "semantic-action-effect",
+          "message": "issued append \"[[rf-73004-2]]\" had no immediate editor effect",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73004-1]][[rf-73004-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73004-1]][[rf-73004-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73004-1]][[rf-73004-0]]"
+            }
+          }
+        },
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73004-2]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73004-1]][[rf-73004-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73004-1]][[rf-73004-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73004-1]][[rf-73004-0]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73005,
+      "status": "failed",
+      "durationMs": 4116,
+      "failures": [
+        {
+          "invariant": "semantic-action-effect",
+          "message": "issued append \"[[rf-73005-2]]\" had no immediate editor effect",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73005-1]][[rf-73005-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73005-1]][[rf-73005-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73005-1]][[rf-73005-0]]"
+            }
+          }
+        },
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73005-2]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73005-1]][[rf-73005-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73005-1]][[rf-73005-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73005-1]][[rf-73005-0]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73006,
+      "status": "failed",
+      "durationMs": 3935,
+      "failures": [
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73006-0]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73006-1]][[rf-73006-2]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73006-1]][[rf-73006-2]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73006-1]][[rf-73006-2]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73007,
+      "status": "failed",
+      "durationMs": 4185,
+      "failures": [
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73007-0]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73007-2]][[rf-73007-1]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73007-2]][[rf-73007-1]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73007-2]][[rf-73007-1]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73008,
+      "status": "failed",
+      "durationMs": 4313,
+      "failures": [
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73008-0]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73008-2]][[rf-73008-1]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73008-2]][[rf-73008-1]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73008-2]][[rf-73008-1]]"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "seed": 73009,
+      "status": "failed",
+      "durationMs": 3816,
+      "failures": [
+        {
+          "invariant": "semantic-action-effect",
+          "message": "issued append \"[[rf-73009-2]]\" had no immediate editor effect",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73009-1]][[rf-73009-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73009-1]][[rf-73009-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73009-1]][[rf-73009-0]]"
+            }
+          }
+        },
+        {
+          "invariant": "semantic-conservation",
+          "message": "token \"[[rf-73009-2]]\" appears 0 times instead of once",
+          "snapshots": {
+            "client-1": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73009-1]][[rf-73009-0]]"
+            },
+            "client-2": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73009-1]][[rf-73009-0]]"
+            },
+            "client-3": {
+              "value": 260,
+              "pending": 0,
+              "revision": 2,
+              "document": "Welcome to Etherpad!\n\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\n\nEtherpad on Github: https://github.com/ether/etherpad[[rf-73009-1]][[rf-73009-0]]"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,9 @@ import type { ReplayArtifact, ScheduleStep } from "./types.js";
 
 function describe(step: ScheduleStep): string {
   switch (step.kind) {
-    case "act": return `client ${step.client + 1} increments by ${step.action.amount}`;
+    case "act": return step.action.type === "increment"
+      ? `client ${step.client + 1} increments by ${step.action.amount}`
+      : `client ${step.client + 1} appends ${JSON.stringify(step.action.text)}`;
     case "dropNext": return `drop next ${step.direction} message for client ${step.client + 1}`;
     case "delayTraffic": return `delay client ${step.client + 1} traffic by ${step.ms} ms`;
     case "clockSkew": return `skew client ${step.client + 1} application clock by ${step.ms} ms`;
