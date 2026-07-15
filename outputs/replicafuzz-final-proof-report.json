@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-15T21:13:35.847Z",
+  "generatedAt": "2026-07-15T22:13:30.987Z",
   "package": {
     "name": "replicafuzz",
     "version": "0.1.0-alpha.2"
@@ -142,9 +142,11 @@
   },
   "publication": {
     "repository": "https://github.com/Atomics-hub/replicafuzz",
-    "githubRelease": "planned_v0.1.0-alpha.2",
-    "npm": "blocked_interactive_authentication",
-    "npmBoundary": "The supplied token authenticated, but npm required an interactive browser authentication/2FA step. No npm version was published."
+    "githubRelease": "https://github.com/Atomics-hub/replicafuzz/releases/tag/v0.1.0-alpha.2",
+    "npm": "published_and_clean_install_verified",
+    "npmUrl": "https://www.npmjs.com/package/replicafuzz/v/0.1.0-alpha.2",
+    "npmBoundary": "replicafuzz@0.1.0-alpha.2 was read from the public registry and installed in a fresh temporary project; its CLI command listing exited 0. This verifies this release, not a future OIDC publish.",
+    "trustedPublishing": "configured_not_yet_exercised"
   },
   "releasePreflight": {
     "status": "ready_for_github_alpha",
