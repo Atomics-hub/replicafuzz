@@ -1,6 +1,6 @@
 {
   "name": "replicafuzz",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": false,
   "description": "Falsify multi-client browser convergence with seeded schedules and minimized replay",
   "type": "module",
@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/build-yjs-fixture.mjs && node scripts/copy-release-assets.mjs",
     "check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run --maxWorkers=1",
+    "test": "vitest run tests/*.test.ts --maxWorkers=1",
     "test:browser": "tsx src/cli.ts smoke",
     "replicafuzz": "tsx src/cli.ts",
     "demo": "tsx src/cli.ts demo --fixture websocket --seed 4242 --mutant ws-drop-first-outbound",
@@ -24,8 +24,11 @@
     "verify": "pnpm build && pnpm check && pnpm test && pnpm test:browser",
     "package:smoke": "node scripts/package-smoke.mjs",
     "measure:yjs": "pnpm build && node scripts/measure-yjs.mjs",
+    "proof:etherpad": "tsx scripts/etherpad-proof.ts",
+    "test:etherpad": "vitest run tests/etherpad-integration.test.ts --maxWorkers=1",
     "name:check": "node scripts/check-name.mjs",
     "release:preflight": "pnpm verify && pnpm package:smoke && node scripts/release-preflight.mjs",
+    "proof:final": "node scripts/final-proof.mjs",
     "prepack": "pnpm build"
   },
   "engines": {

@@ -1,5 +1,5 @@
 import * as Y from "yjs";
-import type { ScheduleStep } from "../../src/types.js";
+import type { ScheduleStep, SemanticAction } from "../../src/types.js";
 
 const query = new URLSearchParams(location.search);
 const runId = query.get("runId")!;
@@ -57,7 +57,8 @@ function connect(): void {
   };
 }
 
-async function act(action: { type: "increment"; amount: number }): Promise<void> {
+async function act(action: SemanticAction): Promise<void> {
+  if (action.type !== "increment") throw new Error(`Yjs fixture does not support semantic action ${action.type}`);
   const deadline = Date.now() + 2_000;
   while ((!socket || socket.readyState !== WebSocket.OPEN || !synced) && Date.now() < deadline) await sleep(10);
   if (!socket || socket.readyState !== WebSocket.OPEN || !synced) throw new Error("Yjs target did not become ready");

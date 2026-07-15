@@ -58,6 +58,7 @@ export class BrowserFixtureAdapter implements SyncAdapter {
   }
 
   async act(client: ClientHandle, action: SemanticAction): Promise<void> {
+    if (action.type !== "increment") throw new Error(`fixture adapter does not support semantic action ${action.type}`);
     const page = this.livePage(client);
     await page.evaluate((input) => window.syncFixture.act(input), action);
     const runId = new URL(client.url).searchParams.get("runId")!;

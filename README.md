@@ -10,8 +10,10 @@ Chromium contexts with Playwright, drives semantic actions through a six-method
 adapter, generates schedules from a seed with fast-check, minimizes failures by
 replaying candidate schedules, and emits a short JSON + Markdown counterexample.
 
-The included targets are synthetic micro-apps. They make the harness testable;
-they do not prove integration cost or fault coverage on production systems.
+The core targets are synthetic micro-apps that make the harness testable. A
+separate external adapter now exercises unmodified Etherpad 3.3.2 and records a
+minimized post-reconnect UI-readiness failure. One production application is
+evidence of portability, not broad vendor-neutral coverage.
 
 ## Five-second demo
 
@@ -45,6 +47,10 @@ Artifacts land under `output/playwright/`. The checked-in example is
   relay to exercise real CRDT merge and reconnect behavior. Its UI, relay, and
   adapter remain purpose-built, so it is not presented as a production-
   application integration.
+- The external Etherpad adapter drives the unmodified upstream browser UI,
+  observes canonical text, collaboration revision, and native pending-commit
+  state, and supports real browser disconnect/reconnect, reload, death, and
+  relaunch. Its three-step reconnect counterexample reproduced 5/5 locally.
 - Offline and reconnect use `BrowserContext.setOffline`; reload uses
   `Page.reload`; client death closes the page and relaunch creates a new page in
   the same context.
@@ -88,6 +94,10 @@ pnpm replicafuzz replay output/playwright/faults/websocket-drop-first-outbound.j
 
 # Recompute the gate report locally
 pnpm proof
+
+# Against a separately running Etherpad 3.3.2 source build
+ETHERPAD_ORIGIN=http://127.0.0.1:9001 pnpm test:etherpad
+ETHERPAD_ORIGIN=http://127.0.0.1:9001 pnpm proof:etherpad -- --runs 10
 ```
 
 Node 22 or newer and pnpm are required. The browser install is local Playwright
@@ -117,17 +127,18 @@ and [`docs/architecture.md`](docs/architecture.md).
 
 ## Gate discipline
 
-`pnpm proof` writes `outputs/replicafuzz-proof-report.{json,md}` with an exact status
-for every technical pass-or-kill gate. A green report on these local fixtures is
-not a production validation. In particular, the fourth-app time measures a
-purpose-built target against an already-known contract, and the novel-failure
-case is a real baseline resilience gap in a synthetic fixture.
+`pnpm proof` writes `outputs/replicafuzz-proof-report.{json,md}` for the original
+synthetic gates. `pnpm proof:etherpad` writes the separate unfamiliar-app proof
+and human-readable minimized replay. Etherpad materially strengthens the
+portability and actionable-failure evidence, but one local default deployment
+still does not establish broad production validation.
 
 ## Repository map
 
 ```text
 src/                 runner, adapter contract, CLI, generation, shrink, replay
 fixtures/            local browser apps and fixture server
+integrations/         external application adapters and setup boundaries
 tests/               core, existing-test baseline, and fourth-app integration
 examples/            checked-in minimal replay
 evidence/            integration timing record
@@ -139,6 +150,8 @@ output/playwright/   ephemeral browser replay artifacts (ignored)
 ## Alpha status and license
 
 ReplicaFuzz is an experimental alpha, not a hosted service or production
-certification. The code is MIT licensed. The current evidence proves the harness
-against disclosed local fixtures and one external sync-library target; it does
-not establish broad production portability or customer impact.
+certification. The code is MIT licensed. The current evidence proves the
+harness against disclosed local fixtures, one external sync library, and one
+unfamiliar production application under a local default configuration. It does
+not establish broad production portability, maintainer-confirmed upstream bug
+status, or customer impact.

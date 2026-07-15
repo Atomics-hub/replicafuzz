@@ -6,6 +6,8 @@
 - [ ] `pnpm exec playwright install chromium`
 - [ ] `pnpm verify`
 - [ ] `pnpm measure:yjs` passes 10/10
+- [ ] Etherpad 3.3.2 is running locally and `pnpm test:etherpad` passes
+- [ ] `pnpm proof:etherpad -- --runs 10` emits a minimized 5/5 replay
 - [ ] `pnpm proof` reports five bounded synthetic-fixture passes
 - [ ] `pnpm package:smoke` installs and executes the packed CLI
 - [ ] `pnpm audit --audit-level=high` reports no known vulnerabilities
@@ -20,15 +22,15 @@
 - [ ] Enable private vulnerability reporting, secret scanning, and Dependabot
 - [ ] Add a `main` ruleset requiring the `verify` status check and blocking force pushes
 - [ ] Create labels used by issue forms: `bug` and `adapter`
-- [ ] Tag `v0.1.0-alpha.1`
-- [ ] Create the GitHub prerelease from `docs/release-notes-0.1.0-alpha.1.md`
+- [ ] Tag `v0.1.0-alpha.2`
+- [ ] Create the GitHub prerelease from `docs/release-notes-0.1.0-alpha.2.md`
 - [ ] Attach the packed tarball, checksum, proof report, and release preflight
 
 ## npm publication (separate credential gate)
 
 - [ ] Sign in to npm and confirm ownership of the unscoped `replicafuzz` name
 - [ ] Configure GitHub Actions as an npm trusted publisher
-- [ ] Publish `0.1.0-alpha.1` with provenance
+- [ ] Publish `0.1.0-alpha.2` under the `alpha` dist-tag
 - [ ] Install from the public registry in a clean directory and run `replicafuzz help`
 
 The checklist distinguishes an offline preflight, a public GitHub alpha, and an
