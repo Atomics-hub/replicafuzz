@@ -1,0 +1,35 @@
+{
+  "name": "syncfuzz-proof",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vendor-neutral multi-client convergence testing falsification proof",
+  "type": "module",
+  "bin": {
+    "syncfuzz": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:browser": "tsx src/cli.ts smoke",
+    "demo": "tsx src/cli.ts demo --fixture websocket --seed 4242 --mutant ws-drop-first-outbound",
+    "proof": "tsx src/cli.ts proof",
+    "campaign": "tsx src/cli.ts campaign --fixture websocket --runs 50 --clients 3 --workers 4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "fast-check": "^4.3.0",
+    "playwright": "^1.55.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@11.7.0"
+}
