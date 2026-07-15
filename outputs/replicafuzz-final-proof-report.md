@@ -1,6 +1,6 @@
 # ReplicaFuzz final proof report
 
-Generated: 2026-07-15T21:13:35.847Z
+Generated: 2026-07-15T22:13:30.987Z
 
 ## Verdict
 
@@ -22,9 +22,11 @@ All five technical falsification gates pass within their stated local evidence b
 ## Publication
 
 - Repository: https://github.com/Atomics-hub/replicafuzz
-- GitHub release: planned_v0.1.0-alpha.2
-- npm: blocked_interactive_authentication
-- npm boundary: The supplied token authenticated, but npm required an interactive browser authentication/2FA step. No npm version was published.
+- GitHub release: https://github.com/Atomics-hub/replicafuzz/releases/tag/v0.1.0-alpha.2
+- npm: published_and_clean_install_verified
+- npm URL: https://www.npmjs.com/package/replicafuzz/v/0.1.0-alpha.2
+- npm boundary: replicafuzz@0.1.0-alpha.2 was read from the public registry and installed in a fresh temporary project; its CLI command listing exited 0. This verifies this release, not a future OIDC publish.
+- Trusted publishing: configured_not_yet_exercised
 
 ## Remaining unproven claims
 

@@ -10,8 +10,14 @@ const synthetic = JSON.parse(await readFile("outputs/replicafuzz-proof-report.js
 const etherpad = JSON.parse(await readFile("outputs/replicafuzz-etherpad-proof.json", "utf8"));
 const preflight = JSON.parse(await readFile("outputs/replicafuzz-release-preflight.json", "utf8"));
 const sourceRef = option("source-ref", `v${packageJson.version}`);
-const githubRelease = option("github-release", "not_published_for_this_version");
-const npmStatus = option("npm-status", "blocked_interactive_authentication");
+const githubRelease = option("github-release", "not_verified_by_report_generator");
+const npmStatus = option("npm-status", "not_verified_by_report_generator");
+const npmUrl = option("npm-url", "not_supplied");
+const npmBoundary = option(
+  "npm-boundary",
+  "Publication state was not supplied to the report generator and must be independently verified.",
+);
+const trustedPublishing = option("trusted-publishing", "not_verified_by_report_generator");
 
 const syntheticGate = (name) => synthetic.gates.find((gate) => gate.name === name);
 const gates = [
@@ -76,7 +82,9 @@ const report = {
     repository: "https://github.com/Atomics-hub/replicafuzz",
     githubRelease,
     npm: npmStatus,
-    npmBoundary: "The supplied token authenticated, but npm required an interactive browser authentication/2FA step. No npm version was published.",
+    npmUrl,
+    npmBoundary,
+    trustedPublishing,
   },
   releasePreflight: { status: preflight.status, blockers: preflight.blockers },
   remainingClaimsNotProven: [
@@ -88,7 +96,7 @@ const report = {
   ],
 };
 
-const markdown = `# ReplicaFuzz final proof report\n\nGenerated: ${report.generatedAt}\n\n## Verdict\n\n${report.verdict}\n\n## Pass-or-kill gates\n\n${gates.map((gate) => `${gate.id}. **${gate.name}: ${gate.status.toUpperCase()}** — ${gate.evidence}\n   Boundary: ${gate.boundary}`).join("\n")}\n\n## Publication\n\n- Repository: ${report.publication.repository}\n- GitHub release: ${githubRelease}\n- npm: ${npmStatus}\n- npm boundary: ${report.publication.npmBoundary}\n\n## Remaining unproven claims\n\n${report.remainingClaimsNotProven.map((item) => `- ${item}`).join("\n")}\n`;
+const markdown = `# ReplicaFuzz final proof report\n\nGenerated: ${report.generatedAt}\n\n## Verdict\n\n${report.verdict}\n\n## Pass-or-kill gates\n\n${gates.map((gate) => `${gate.id}. **${gate.name}: ${gate.status.toUpperCase()}** — ${gate.evidence}\n   Boundary: ${gate.boundary}`).join("\n")}\n\n## Publication\n\n- Repository: ${report.publication.repository}\n- GitHub release: ${githubRelease}\n- npm: ${npmStatus}\n- npm URL: ${npmUrl}\n- npm boundary: ${report.publication.npmBoundary}\n- Trusted publishing: ${trustedPublishing}\n\n## Remaining unproven claims\n\n${report.remainingClaimsNotProven.map((item) => `- ${item}`).join("\n")}\n`;
 
 await mkdir("outputs", { recursive: true });
 await writeFile("outputs/replicafuzz-final-proof-report.json", `${JSON.stringify(report, null, 2)}\n`);
