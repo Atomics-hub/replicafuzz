@@ -1,4 +1,4 @@
-# SyncFuzz counterexample
+# ReplicaFuzz counterexample
 
 - Fixture: `websocket`
 - Mutant: `websocket-drop-first-outbound`
@@ -10,7 +10,7 @@
 ## Replay
 
 ```sh
-pnpm syncfuzz replay examples/websocket-drop-first-outbound.json
+pnpm replicafuzz replay examples/websocket-drop-first-outbound.json
 ```
 
 ## Minimal timeline

@@ -16,7 +16,7 @@ function describe(step: ScheduleStep): string {
 
 export function renderTimeline(artifact: ReplayArtifact): string {
   const lines = [
-    `# SyncFuzz counterexample`,
+    `# ReplicaFuzz counterexample`,
     ``,
     `- Fixture: \`${artifact.fixture}\``,
     `- Mutant: \`${artifact.mutant ?? "none"}\``,

@@ -30,7 +30,7 @@ describe("human-readable replay", () => {
     const artifact: ReplayArtifact = {
       schemaVersion: 1,
       createdAt: "2026-07-15T00:00:00Z",
-      command: "syncfuzz replay failure.json",
+      command: "replicafuzz replay failure.json",
       seed: 42,
       replayPath: "ddmin/0:1",
       fixture: "websocket",
@@ -43,6 +43,6 @@ describe("human-readable replay", () => {
       timeline: [],
     };
     expect(renderTimeline(artifact)).toContain("client 1 increments by 2");
-    expect(renderTimeline(artifact)).toContain("syncfuzz replay failure.json");
+    expect(renderTimeline(artifact)).toContain("replicafuzz replay failure.json");
   });
 });

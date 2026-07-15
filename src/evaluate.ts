@@ -1,5 +1,5 @@
 import { readFile, mkdir, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { relative, resolve } from "node:path";
 import { BrowserFixtureAdapter } from "./browser-adapter.js";
 import { seededFaults } from "./faults.js";
 import { runSchedule } from "./runner.js";
@@ -40,7 +40,7 @@ export async function evaluateFaults(adapter: BrowserFixtureAdapter, artifactDir
     const artifact: ReplayArtifact = {
       schemaVersion: 1,
       createdAt: new Date().toISOString(),
-      command: `pnpm syncfuzz replay ${artifactDir}/${fault.id}.json`,
+      command: `pnpm replicafuzz replay ${artifactDir}/${fault.id}.json`,
       seed: fault.seed,
       replayPath: shrunk.replayPath,
       fixture: fault.fixture,
@@ -64,7 +64,7 @@ export async function evaluateFaults(adapter: BrowserFixtureAdapter, artifactDir
       shrinkAttempts: shrunk.attempts,
       replayed: replay.status === "failed",
       durationMs: initial.durationMs,
-      artifact: paths.json,
+      artifact: relative(process.cwd(), paths.json),
     });
   }
   return evaluations;
@@ -129,13 +129,13 @@ export async function runNovelFailure(adapter: BrowserFixtureAdapter): Promise<R
 
 export async function writeProofReport(report: unknown, directory = "outputs"): Promise<{ json: string; markdown: string }> {
   await mkdir(directory, { recursive: true });
-  const jsonPath = resolve(directory, "syncfuzz-proof-report.json");
-  const markdownPath = resolve(directory, "syncfuzz-proof-report.md");
+  const jsonPath = resolve(directory, "replicafuzz-proof-report.json");
+  const markdownPath = resolve(directory, "replicafuzz-proof-report.md");
   await writeFile(jsonPath, `${JSON.stringify(report, null, 2)}\n`);
   const data = report as any;
   const gateLines = data.gates.map((gate: any, index: number) => `${index + 1}. **${gate.name}: ${gate.status.toUpperCase()}** — ${gate.evidence}`);
   const markdown = [
-    "# SyncFuzz technical proof report",
+    "# ReplicaFuzz technical proof report",
     "",
     `Generated: ${data.generatedAt}`,
     "",

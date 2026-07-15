@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-15T20:02:10.193Z",
+  "status": "passed",
+  "library": "yjs",
+  "libraryVersion": "13.6.31",
+  "target": "purpose-built Y.Array counter over ReplicaFuzz WebSocket relay",
+  "clients": 3,
+  "attempts": 10,
+  "passed": 10,
+  "failed": 0,
+  "wallMs": 8728,
+  "p50RunMs": 813,
+  "p95RunMs": 999,
+  "lifecycle": [
+    "offline",
+    "reconnect",
+    "reload",
+    "client death",
+    "relaunch"
+  ],
+  "transportBoundary": "Native Yjs updates cross a purpose-built local WebSocket relay; y-websocket is not used.",
+  "claimBoundary": "This validates an external CRDT library in a purpose-built browser target, not an unfamiliar third-party production application.",
+  "results": [
+    {
+      "attempt": 1,
+      "status": "passed",
+      "durationMs": 999,
+      "failures": []
+    },
+    {
+      "attempt": 2,
+      "status": "passed",
+      "durationMs": 813,
+      "failures": []
+    },
+    {
+      "attempt": 3,
+      "status": "passed",
+      "durationMs": 796,
+      "failures": []
+    },
+    {
+      "attempt": 4,
+      "status": "passed",
+      "durationMs": 817,
+      "failures": []
+    },
+    {
+      "attempt": 5,
+      "status": "passed",
+      "durationMs": 857,
+      "failures": []
+    },
+    {
+      "attempt": 6,
+      "status": "passed",
+      "durationMs": 798,
+      "failures": []
+    },
+    {
+      "attempt": 7,
+      "status": "passed",
+      "durationMs": 836,
+      "failures": []
+    },
+    {
+      "attempt": 8,
+      "status": "passed",
+      "durationMs": 783,
+      "failures": []
+    },
+    {
+      "attempt": 9,
+      "status": "passed",
+      "durationMs": 777,
+      "failures": []
+    },
+    {
+      "attempt": 10,
+      "status": "passed",
+      "durationMs": 773,
+      "failures": []
+    }
+  ]
+}

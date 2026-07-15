@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import { BrowserFixtureAdapter } from "./browser-adapter.js";
 import { evaluateFaults, replayArtifact, runCampaign, runNovelFailure, writeProofReport } from "./evaluate.js";
 import { generateSchedule, seededFaultSchedule } from "./schedule.js";
@@ -16,13 +17,13 @@ function option(name: string, fallback?: string): string | undefined {
 async function main(): Promise<void> {
   const command = process.argv[2] ?? "help";
   if (command === "help") {
-    console.log("syncfuzz <smoke|demo|campaign|fault-suite|replay|proof> [options]");
+    console.log("replicafuzz <smoke|demo|campaign|fault-suite|replay|proof|novel> [options]");
     return;
   }
   const adapter = await BrowserFixtureAdapter.create();
   try {
     if (command === "smoke") {
-      const fixtures: FixtureName[] = ["websocket", "sse", "rest", "storage"];
+      const fixtures: FixtureName[] = ["websocket", "sse", "rest", "storage", "yjs"];
       for (const fixture of fixtures) {
         const result = await runSchedule(adapter, { fixture, clients: 3, seed: 1, schedule: seededFaultSchedule(1, 3) });
         console.log(JSON.stringify({ fixture, status: result.status, durationMs: result.durationMs, failures: result.failures, error: result.error }));
@@ -75,7 +76,8 @@ async function main(): Promise<void> {
       const detected = faults.filter((fault) => fault.detected).length;
       const replayed = faults.filter((fault) => fault.detected && fault.replayed).length;
       const replayRate = detected ? replayed / detected : 0;
-      const integration = JSON.parse(await readFile("evidence/fourth-app-integration.json", "utf8")) as {
+      const integrationPath = fileURLToPath(new URL("../evidence/fourth-app-integration.json", import.meta.url));
+      const integration = JSON.parse(await readFile(integrationPath, "utf8")) as {
         elapsedMinutes: number;
         coreDiff: { filesChanged: number; insertions: number; deletions: number };
         claimBoundary: string;

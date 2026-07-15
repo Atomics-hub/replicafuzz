@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use ReplicaFuzz in research, please cite this software."
+title: "ReplicaFuzz"
+type: software
+authors:
+  - family-names: "Ryan"
+    given-names: "Tom"
+repository-code: "https://github.com/Atomics-hub/replicafuzz"
+license: MIT
+version: "0.1.0-alpha.1"
+date-released: "2026-07-15"

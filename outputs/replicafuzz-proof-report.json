@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T19:40:22.853Z",
+  "generatedAt": "2026-07-15T20:05:14.203Z",
   "verdict": "All technical gates passed on synthetic local fixtures.",
   "gates": [
     {
@@ -20,7 +20,7 @@
     {
       "name": "PR runtime",
       "status": "pass",
-      "evidence": "50 schedules, three clients, four workers completed in 26.26 s (42 passed, 8 failed, 0 errors)."
+      "evidence": "50 schedules, three clients, four workers completed in 11.95 s (47 passed, 3 failed, 0 errors)."
     },
     {
       "name": "Novel actionable failure",
@@ -52,12 +52,12 @@
       "runs": 50,
       "clients": 3,
       "workers": 4,
-      "passed": 42,
-      "failed": 8,
+      "passed": 47,
+      "failed": 3,
       "errors": 0,
-      "wallMs": 26260,
-      "p50ScheduleMs": 1771,
-      "p95ScheduleMs": 3022
+      "wallMs": 11949,
+      "p50ScheduleMs": 869,
+      "p95ScheduleMs": 1294
     },
     "integration": {
       "schemaVersion": 1,
@@ -135,8 +135,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 3875,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-drop-first-outbound.json"
+      "durationMs": 473,
+      "artifact": "output/playwright/faults/websocket-drop-first-outbound.json"
     },
     {
       "id": "websocket-duplicate-first-op",
@@ -147,8 +147,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1572,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-duplicate-first-op.json"
+      "durationMs": 383,
+      "artifact": "output/playwright/faults/websocket-duplicate-first-op.json"
     },
     {
       "id": "websocket-reverse-first-op",
@@ -159,8 +159,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 2171,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-reverse-first-op.json"
+      "durationMs": 398,
+      "artifact": "output/playwright/faults/websocket-reverse-first-op.json"
     },
     {
       "id": "websocket-zero-first-op",
@@ -171,8 +171,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 724,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-zero-first-op.json"
+      "durationMs": 450,
+      "artifact": "output/playwright/faults/websocket-zero-first-op.json"
     },
     {
       "id": "websocket-ignore-client-2",
@@ -183,8 +183,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1213,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-ignore-client-2.json"
+      "durationMs": 434,
+      "artifact": "output/playwright/faults/websocket-ignore-client-2.json"
     },
     {
       "id": "websocket-stale-client-2",
@@ -195,8 +195,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1856,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-stale-client-2.json"
+      "durationMs": 373,
+      "artifact": "output/playwright/faults/websocket-stale-client-2.json"
     },
     {
       "id": "websocket-revision-skew-client-1",
@@ -207,8 +207,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 2,
       "replayed": true,
-      "durationMs": 1227,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-revision-skew-client-1.json"
+      "durationMs": 373,
+      "artifact": "output/playwright/faults/websocket-revision-skew-client-1.json"
     },
     {
       "id": "sse-drop-first-outbound",
@@ -219,8 +219,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1784,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-drop-first-outbound.json"
+      "durationMs": 390,
+      "artifact": "output/playwright/faults/sse-drop-first-outbound.json"
     },
     {
       "id": "sse-duplicate-first-op",
@@ -231,8 +231,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1016,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-duplicate-first-op.json"
+      "durationMs": 525,
+      "artifact": "output/playwright/faults/sse-duplicate-first-op.json"
     },
     {
       "id": "sse-reverse-first-op",
@@ -243,8 +243,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 871,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-reverse-first-op.json"
+      "durationMs": 560,
+      "artifact": "output/playwright/faults/sse-reverse-first-op.json"
     },
     {
       "id": "sse-ignore-client-2",
@@ -255,8 +255,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 5,
       "replayed": true,
-      "durationMs": 936,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-ignore-client-2.json"
+      "durationMs": 471,
+      "artifact": "output/playwright/faults/sse-ignore-client-2.json"
     },
     {
       "id": "sse-stale-client-2",
@@ -267,8 +267,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 875,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-stale-client-2.json"
+      "durationMs": 433,
+      "artifact": "output/playwright/faults/sse-stale-client-2.json"
     },
     {
       "id": "sse-skew-client-3",
@@ -279,8 +279,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 2,
       "replayed": true,
-      "durationMs": 842,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-skew-client-3.json"
+      "durationMs": 415,
+      "artifact": "output/playwright/faults/sse-skew-client-3.json"
     },
     {
       "id": "rest-drop-first-outbound",
@@ -291,8 +291,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 785,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-drop-first-outbound.json"
+      "durationMs": 523,
+      "artifact": "output/playwright/faults/rest-drop-first-outbound.json"
     },
     {
       "id": "rest-duplicate-first-op",
@@ -303,8 +303,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1009,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-duplicate-first-op.json"
+      "durationMs": 485,
+      "artifact": "output/playwright/faults/rest-duplicate-first-op.json"
     },
     {
       "id": "rest-reverse-first-op",
@@ -315,8 +315,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 957,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-reverse-first-op.json"
+      "durationMs": 452,
+      "artifact": "output/playwright/faults/rest-reverse-first-op.json"
     },
     {
       "id": "rest-zero-first-op",
@@ -327,8 +327,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 790,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-zero-first-op.json"
+      "durationMs": 417,
+      "artifact": "output/playwright/faults/rest-zero-first-op.json"
     },
     {
       "id": "rest-ignore-client-2",
@@ -339,8 +339,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 914,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-ignore-client-2.json"
+      "durationMs": 482,
+      "artifact": "output/playwright/faults/rest-ignore-client-2.json"
     },
     {
       "id": "rest-stale-client-2",
@@ -351,8 +351,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 3,
       "replayed": true,
-      "durationMs": 1536,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-stale-client-2.json"
+      "durationMs": 463,
+      "artifact": "output/playwright/faults/rest-stale-client-2.json"
     },
     {
       "id": "rest-revision-skew-client-1",
@@ -363,8 +363,8 @@
       "minimizedSteps": 1,
       "shrinkAttempts": 2,
       "replayed": true,
-      "durationMs": 1114,
-      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-revision-skew-client-1.json"
+      "durationMs": 502,
+      "artifact": "output/playwright/faults/rest-revision-skew-client-1.json"
     }
   ]
 }

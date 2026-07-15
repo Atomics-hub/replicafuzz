@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-15T20:06:10.737Z",
+  "status": "ready_for_github_alpha",
+  "publishState": "not_published_by_preflight",
+  "package": {
+    "name": "replicafuzz",
+    "version": "0.1.0-alpha.1",
+    "archiveSha256": "1ed4ba356c3b77951ec548fd12ccc2d3c3cd187e6770a2e962bc68850749aabc"
+  },
+  "checks": [
+    {
+      "name": "package-name",
+      "status": "pass",
+      "detail": "replicafuzz"
+    },
+    {
+      "name": "alpha-version",
+      "status": "pass",
+      "detail": "0.1.0-alpha.1"
+    },
+    {
+      "name": "publishable",
+      "status": "pass",
+      "detail": "public package metadata"
+    },
+    {
+      "name": "repository",
+      "status": "pass",
+      "detail": "git+https://github.com/Atomics-hub/replicafuzz.git"
+    },
+    {
+      "name": "license",
+      "status": "pass",
+      "detail": "MIT"
+    },
+    {
+      "name": "proof-gates",
+      "status": "pass",
+      "detail": "five bounded synthetic gates"
+    },
+    {
+      "name": "package-smoke",
+      "status": "pass",
+      "detail": "1ed4ba356c3b77951ec548fd12ccc2d3c3cd187e6770a2e962bc68850749aabc"
+    },
+    {
+      "name": "real-yjs-target",
+      "status": "pass",
+      "detail": "This validates an external CRDT library in a purpose-built browser target, not an unfamiliar third-party production application."
+    },
+    {
+      "name": "public-name-collision",
+      "status": "pass",
+      "detail": "This is a public npm/GitHub collision check only. It is not trademark, company-name, domain, or legal clearance."
+    },
+    {
+      "name": "file:README.md",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:LICENSE",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:CHANGELOG.md",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:CONTRIBUTING.md",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:CODE_OF_CONDUCT.md",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:SECURITY.md",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:CITATION.cff",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:.github/workflows/ci.yml",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:.github/workflows/proof.yml",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:dist/src/cli.js",
+      "status": "pass",
+      "detail": "present"
+    },
+    {
+      "name": "file:dist/evidence/fourth-app-integration.json",
+      "status": "pass",
+      "detail": "present"
+    }
+  ],
+  "blockers": [],
+  "boundaries": [
+    "This is an offline publication preflight; it does not create a repository, push, tag, release, or npm package.",
+    "The Yjs target is an external sync library in a purpose-built browser fixture, not a third-party production application.",
+    "The five original gates remain synthetic-fixture evidence.",
+    "The ReplicaFuzz name check is superficial and is not legal or trademark clearance."
+  ]
+}

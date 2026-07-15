@@ -1,11 +1,11 @@
-# SyncFuzz proof
+# ReplicaFuzz
 
-SyncFuzz is a **working name** for a local falsification harness that asks one
+ReplicaFuzz is an experimental local falsification harness that asks one
 question: after several real browser clients act under adverse schedules, do
 their application-defined canonical states converge and still match the
 semantic model?
 
-This repository is intentionally smaller than a product. It launches isolated
+This alpha is intentionally smaller than a product. It launches isolated
 Chromium contexts with Playwright, drives semantic actions through a six-method
 adapter, generates schedules from a seed with fast-check, minimizes failures by
 replaying candidate schedules, and emits a short JSON + Markdown counterexample.
@@ -41,6 +41,10 @@ Artifacts land under `output/playwright/`. The checked-in example is
 - WebSocket, Server-Sent Events + HTTP, and REST polling exercise three distinct
   inbound transport shapes. A fourth polling + localStorage fixture measures
   adapter integration.
+- A fifth target uses the external `yjs` package with a small local WebSocket
+  relay to exercise real CRDT merge and reconnect behavior. Its UI, relay, and
+  adapter remain purpose-built, so it is not presented as a production-
+  application integration.
 - Offline and reconnect use `BrowserContext.setOffline`; reload uses
   `Page.reload`; client death closes the page and relaunch creates a new page in
   the same context.
@@ -71,16 +75,16 @@ pnpm test:browser
 pnpm demo
 
 # All 20 disclosed mutants
-pnpm syncfuzz fault-suite
+pnpm replicafuzz fault-suite
 
 # Baseline resilience gap not covered by the fixture's happy-path test
-pnpm syncfuzz novel
+pnpm replicafuzz novel
 
 # Independent PR-size timing run
 pnpm campaign
 
 # Re-run a saved failure exactly
-pnpm syncfuzz replay output/playwright/faults/websocket-drop-first-outbound.json
+pnpm replicafuzz replay output/playwright/faults/websocket-drop-first-outbound.json
 
 # Recompute the gate report locally
 pnpm proof
@@ -113,7 +117,7 @@ and [`docs/architecture.md`](docs/architecture.md).
 
 ## Gate discipline
 
-`pnpm proof` writes `outputs/syncfuzz-proof-report.{json,md}` with an exact status
+`pnpm proof` writes `outputs/replicafuzz-proof-report.{json,md}` with an exact status
 for every technical pass-or-kill gate. A green report on these local fixtures is
 not a production validation. In particular, the fourth-app time measures a
 purpose-built target against an already-known contract, and the novel-failure
@@ -132,8 +136,9 @@ outputs/             final local proof report (generated)
 output/playwright/   ephemeral browser replay artifacts (ignored)
 ```
 
-## Name and license
+## Alpha status and license
 
-“SyncFuzz” is only a working label and has not been cleared for launch. The code
-is MIT licensed. No GitHub repository, deployment, package publication, or
-hosted service is created by this proof.
+ReplicaFuzz is an experimental alpha, not a hosted service or production
+certification. The code is MIT licensed. The current evidence proves the harness
+against disclosed local fixtures and one external sync-library target; it does
+not establish broad production portability or customer impact.

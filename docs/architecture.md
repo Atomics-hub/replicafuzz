@@ -1,4 +1,4 @@
-# Architecture
+# ReplicaFuzz architecture
 
 ## Execution path
 

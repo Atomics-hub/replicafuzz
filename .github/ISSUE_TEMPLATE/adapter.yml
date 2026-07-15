@@ -1,0 +1,23 @@
+name: Adapter report
+description: Propose or report a real application/library integration
+title: "[adapter] "
+labels: ["adapter"]
+body:
+  - type: input
+    id: target
+    attributes:
+      label: Target
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Adapter contract and integration effort
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Detection and replay evidence
+    validations:
+      required: true

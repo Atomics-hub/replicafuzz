@@ -1,6 +1,6 @@
-# SyncFuzz technical proof report
+# ReplicaFuzz technical proof report
 
-Generated: 2026-07-15T19:40:22.853Z
+Generated: 2026-07-15T20:05:14.203Z
 
 > Scope: local synthetic browser fixtures and seeded mutants. This report does not establish production-stack portability, demand, or a company thesis.
 
@@ -13,7 +13,7 @@ All technical gates passed on synthetic local fixtures.
 1. **Fault detection: PASS** — 20/20 seeded mutants detected across WebSocket, SSE, and REST synthetic fixtures.
 2. **Replay stability: PASS** — 20/20 minimized failures reproduced (100.0%).
 3. **Fourth-app integration: PASS** — A fourth synthetic storage/polling app integrated in 1.7 minutes with 4 insertions and 2 deletions across 3 core files. This is not a production-app timing claim.
-4. **PR runtime: PASS** — 50 schedules, three clients, four workers completed in 26.26 s (42 passed, 8 failed, 0 errors).
+4. **PR runtime: PASS** — 50 schedules, three clients, four workers completed in 11.95 s (47 passed, 3 failed, 0 errors).
 5. **Novel actionable failure: PASS** — Baseline WebSocket fixture silently loses a dropped outbound operation when an unrelated inbound snapshot clears pending state; its declared single-client happy-path test does not exercise message loss. This is a synthetic-fixture finding, not a production bug.
 
 ## Measurements
@@ -43,12 +43,12 @@ All technical gates passed on synthetic local fixtures.
     "runs": 50,
     "clients": 3,
     "workers": 4,
-    "passed": 42,
-    "failed": 8,
+    "passed": 47,
+    "failed": 3,
     "errors": 0,
-    "wallMs": 26260,
-    "p50ScheduleMs": 1771,
-    "p95ScheduleMs": 3022
+    "wallMs": 11949,
+    "p50ScheduleMs": 869,
+    "p95ScheduleMs": 1294
   },
   "integration": {
     "schemaVersion": 1,

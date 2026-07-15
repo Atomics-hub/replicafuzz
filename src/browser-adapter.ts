@@ -141,7 +141,7 @@ export class BrowserFixtureAdapter implements SyncAdapter {
   private urlFor(clientId: number, options: AdapterRunOptions): string {
     const query = new URLSearchParams({ fixture: options.fixture, runId: options.runId, client: String(clientId) });
     if (options.mutant) query.set("mutant", options.mutant);
-    return `${this.server.origin}/fixture?${query}`;
+    return `${this.server.origin}/${options.fixture === "yjs" ? "fixture-yjs" : "fixture"}?${query}`;
   }
 
   private async snapshotRecord(clients: ClientHandle[]): Promise<Record<string, CanonicalSnapshot | null>> {

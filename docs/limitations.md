@@ -1,4 +1,4 @@
-# Limitations
+# ReplicaFuzz limitations
 
 - The apps are synthetic micro-fixtures. No third-party production repository is
   integrated, so broad vendor neutrality remains unproven.

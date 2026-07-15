@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-07-15T19:24:19.184Z",
-  "command": "pnpm syncfuzz replay examples/websocket-drop-first-outbound.json",
+  "command": "pnpm replicafuzz replay examples/websocket-drop-first-outbound.json",
   "seed": 10000,
   "replayPath": "ddmin/3:5,0:2",
   "fixture": "websocket",

@@ -1,0 +1,36 @@
+name: bounded-proof
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm measure:yjs
+      - run: pnpm proof
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: replicafuzz-proof
+          path: |
+            outputs/replicafuzz-proof-report.*
+            evidence/yjs-integration.json
+            output/playwright/faults/
+          retention-days: 14

@@ -1,4 +1,4 @@
-# Measurement method
+# ReplicaFuzz measurement method
 
 ## Fault detection
 

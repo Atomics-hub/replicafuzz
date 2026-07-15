@@ -1,6 +1,10 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { once } from "node:events";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { WebSocketServer, WebSocket } from "ws";
+import * as Y from "yjs";
 
 type StoredState = {
   value: number;
@@ -9,6 +13,11 @@ type StoredState = {
   operationCount: number;
   wsClients: Map<number, WebSocket>;
   sseClients: Map<number, ServerResponse>;
+};
+
+type YjsState = {
+  doc: Y.Doc;
+  clients: Set<WebSocket>;
 };
 
 export type FixtureServer = {
@@ -52,7 +61,7 @@ async function accept(snapshot){
   if(control.dropInbound>0){control.dropInbound--;return;}
   if(control.inboundDelay) await sleep(control.inboundDelay);
   state.value=snapshot.value;state.revision=snapshot.revision;state.pending=0;render();
-  if(fixture==='storage') localStorage.setItem('syncfuzz-state',JSON.stringify(snapshot));
+  if(fixture==='storage') localStorage.setItem('replicafuzz-state',JSON.stringify(snapshot));
 }
 function op(amount){return {type:'op',opId:clientId+'-'+(++sequence),clientId,delta:amount,at:Date.now()+clockSkew};}
 async function sendHttp(payload){
@@ -85,7 +94,7 @@ async function poll(){
 if(fixture==='websocket')connectWebSocket();
 else if(fixture==='sse')connectSse();
 else {
-  if(fixture==='storage'){const saved=localStorage.getItem('syncfuzz-state');if(saved)accept(JSON.parse(saved));}
+  if(fixture==='storage'){const saved=localStorage.getItem('replicafuzz-state');if(saved)accept(JSON.parse(saved));}
   pollTimer=setInterval(poll,25);poll();
 }
 document.querySelector('#increment').onclick=()=>act({type:'increment',amount:1});
@@ -101,6 +110,14 @@ window.syncFixture={
 };
 render();
 </script></body></html>`;
+
+function yjsPage(bundle: string): string {
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ReplicaFuzz Yjs target</title>
+<style>:root{font:16px/1.45 system-ui;color:#17202a;background:#f5f7fa}body{max-width:42rem;margin:4rem auto;padding:0 1rem}main{background:white;border:1px solid #dfe6ee;border-radius:12px;padding:2rem}output{font:700 4rem/1 monospace;display:block;margin:1rem 0}button{font:inherit;padding:.7rem 1rem}</style>
+</head><body><main><h1>Yjs counter</h1><output id="value">0</output><p id="status">starting</p><button id="increment">Increment</button></main><script>${bundle}</script></body></html>`;
+}
 
 function newState(): StoredState {
   return { value: 0, revision: 0, applied: new Set(), operationCount: 0, wsClients: new Map(), sseClients: new Map() };
@@ -152,7 +169,14 @@ function applyOperation(state: StoredState, mutant: string, clientId: number, de
 }
 
 export async function startFixtureServer(port = 0): Promise<FixtureServer> {
+  let yjsBundle: string;
+  try {
+    yjsBundle = await readFile(fileURLToPath(new URL("./yjs/client.bundle.js", import.meta.url)), "utf8");
+  } catch {
+    yjsBundle = await readFile(resolve("dist/fixtures/yjs/client.bundle.js"), "utf8");
+  }
   const states = new Map<string, StoredState>();
+  const yjsStates = new Map<string, YjsState>();
   const stateFor = (runId: string): StoredState => {
     let state = states.get(runId);
     if (!state) { state = newState(); states.set(runId, state); }
@@ -167,11 +191,22 @@ export async function startFixtureServer(port = 0): Promise<FixtureServer> {
       response.end(page);
       return;
     }
+    if (url.pathname === "/fixture-yjs") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" });
+      response.end(yjsPage(yjsBundle));
+      return;
+    }
     if (url.pathname === "/reset" && request.method === "POST") {
       const previous = states.get(runId);
       previous?.sseClients.forEach((client) => client.end());
       previous?.wsClients.forEach((client) => client.close());
       states.set(runId, newState());
+      const yjsState = yjsStates.get(runId);
+      if (yjsState) {
+        yjsState.clients.forEach((client) => client.close());
+        yjsState.doc.destroy();
+        yjsStates.delete(runId);
+      }
       json(response, 200, { ok: true });
       return;
     }
@@ -201,9 +236,27 @@ export async function startFixtureServer(port = 0): Promise<FixtureServer> {
   const sockets = new WebSocketServer({ noServer: true });
   server.on("upgrade", (request, socket, head) => {
     const url = new URL(request.url ?? "/", "http://localhost");
-    if (url.pathname !== "/ws") { socket.destroy(); return; }
+    if (url.pathname !== "/ws" && url.pathname !== "/yjs") { socket.destroy(); return; }
     sockets.handleUpgrade(request, socket, head, (ws) => {
       const runId = url.searchParams.get("runId") ?? "default";
+      if (url.pathname === "/yjs") {
+        let state = yjsStates.get(runId);
+        if (!state) {
+          state = { doc: new Y.Doc(), clients: new Set() };
+          yjsStates.set(runId, state);
+        }
+        state.clients.add(ws);
+        ws.send(Y.encodeStateAsUpdate(state.doc));
+        ws.on("message", (raw) => {
+          const update = new Uint8Array(raw as Buffer);
+          Y.applyUpdate(state!.doc, update);
+          for (const client of state!.clients) {
+            if (client !== ws && client.readyState === WebSocket.OPEN) client.send(update);
+          }
+        });
+        ws.on("close", () => state!.clients.delete(ws));
+        return;
+      }
       const mutant = url.searchParams.get("mutant") ?? "";
       const clientId = Number(url.searchParams.get("client") ?? 0);
       const state = stateFor(runId);
@@ -226,6 +279,7 @@ export async function startFixtureServer(port = 0): Promise<FixtureServer> {
     async close() {
       sockets.clients.forEach((client) => client.terminate());
       states.forEach((state) => state.sseClients.forEach((client) => client.end()));
+      yjsStates.forEach((state) => state.doc.destroy());
       server.close();
       await once(server, "close");
     },

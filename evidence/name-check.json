@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-07-15T20:03:31.908Z",
+  "candidate": "replicafuzz",
+  "status": "superficially_clear",
+  "npm": {
+    "registryStatus": 404,
+    "packageExists": false
+  },
+  "github": {
+    "exactRepositoryNameMatches": []
+  },
+  "boundary": "This is a public npm/GitHub collision check only. It is not trademark, company-name, domain, or legal clearance."
+}

@@ -1,4 +1,4 @@
-# Adapter guide
+# ReplicaFuzz adapter guide
 
 ## Minimum hooks
 

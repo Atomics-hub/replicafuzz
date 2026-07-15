@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible ReplicaFuzz defect
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Include the seed, replay path, target, and minimal artifact without private data.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node, pnpm, Playwright, and browser versions.
+    validations:
+      required: true
