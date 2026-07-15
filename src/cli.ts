@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { resolve } from "node:path";
+import { readFile } from "node:fs/promises";
 import { BrowserFixtureAdapter } from "./browser-adapter.js";
 import { evaluateFaults, replayArtifact, runCampaign, runNovelFailure, writeProofReport } from "./evaluate.js";
 import { generateSchedule, seededFaultSchedule } from "./schedule.js";
@@ -22,7 +22,7 @@ async function main(): Promise<void> {
   const adapter = await BrowserFixtureAdapter.create();
   try {
     if (command === "smoke") {
-      const fixtures: FixtureName[] = ["websocket", "sse", "rest"];
+      const fixtures: FixtureName[] = ["websocket", "sse", "rest", "storage"];
       for (const fixture of fixtures) {
         const result = await runSchedule(adapter, { fixture, clients: 3, seed: 1, schedule: seededFaultSchedule(1, 3) });
         console.log(JSON.stringify({ fixture, status: result.status, durationMs: result.durationMs, failures: result.failures, error: result.error }));
@@ -36,6 +36,10 @@ async function main(): Promise<void> {
     }
     if (command === "fault-suite") {
       console.log(JSON.stringify(await evaluateFaults(adapter), null, 2));
+      return;
+    }
+    if (command === "novel") {
+      console.log(JSON.stringify(await runNovelFailure(adapter), null, 2));
       return;
     }
     if (command === "replay") {
@@ -71,13 +75,17 @@ async function main(): Promise<void> {
       const detected = faults.filter((fault) => fault.detected).length;
       const replayed = faults.filter((fault) => fault.detected && fault.replayed).length;
       const replayRate = detected ? replayed / detected : 0;
-      const integration = { app: "storage", elapsedMinutes: null, status: "not_independently_timed", invasiveCoreRewrites: null };
+      const integration = JSON.parse(await readFile("evidence/fourth-app-integration.json", "utf8")) as {
+        elapsedMinutes: number;
+        coreDiff: { filesChanged: number; insertions: number; deletions: number };
+        claimBoundary: string;
+      };
       const gates = [
         { name: "Fault detection", status: detected >= 16 ? "pass" : "fail", evidence: `${detected}/20 seeded mutants detected across WebSocket, SSE, and REST synthetic fixtures.` },
         { name: "Replay stability", status: replayRate >= 0.95 ? "pass" : "fail", evidence: `${replayed}/${detected} minimized failures reproduced (${(replayRate * 100).toFixed(1)}%).` },
-        { name: "Fourth-app integration", status: "untested", evidence: "The fourth fixture exists, but its integration was not independently timed; no pass is claimed." },
+        { name: "Fourth-app integration", status: integration.elapsedMinutes < 120 && integration.coreDiff.insertions + integration.coreDiff.deletions < 50 ? "pass" : "fail", evidence: `A fourth synthetic storage/polling app integrated in ${integration.elapsedMinutes.toFixed(1)} minutes with ${integration.coreDiff.insertions} insertions and ${integration.coreDiff.deletions} deletions across ${integration.coreDiff.filesChanged} core files. This is not a production-app timing claim.` },
         { name: "PR runtime", status: campaign.wallMs < 180_000 ? "pass" : "fail", evidence: `50 schedules, three clients, four workers completed in ${(campaign.wallMs / 1000).toFixed(2)} s (${campaign.passed} passed, ${campaign.failed} failed, ${campaign.errors} errors).` },
-        { name: "Novel actionable failure", status: novel.status === "failed" ? "pass" : "fail", evidence: novel.status === "failed" ? "Baseline WebSocket fixture loses a single dropped outbound operation and leaves a non-quiescent outbox; its pre-existing single-client tests do not exercise message loss." : `No baseline failure found (${novel.status}).` },
+        { name: "Novel actionable failure", status: novel.status === "failed" ? "pass" : "fail", evidence: novel.status === "failed" ? "Baseline WebSocket fixture silently loses a dropped outbound operation when an unrelated inbound snapshot clears pending state; its declared single-client happy-path test does not exercise message loss. This is a synthetic-fixture finding, not a production bug." : `No baseline failure found (${novel.status}).` },
       ];
       const report = {
         generatedAt: new Date().toISOString(),

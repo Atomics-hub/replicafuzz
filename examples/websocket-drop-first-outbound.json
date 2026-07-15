@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-07-15T19:24:19.184Z",
+  "command": "pnpm syncfuzz replay examples/websocket-drop-first-outbound.json",
+  "seed": 10000,
+  "replayPath": "ddmin/3:5,0:2",
+  "fixture": "websocket",
+  "mutant": "websocket-drop-first-outbound",
+  "clients": 3,
+  "originalSteps": 5,
+  "minimizedSteps": 1,
+  "schedule": [
+    { "kind": "act", "client": 0, "action": { "type": "increment", "amount": 1 } }
+  ],
+  "failure": {
+    "invariant": "semantic-model",
+    "message": "canonical value differs from accepted semantic total 1",
+    "snapshots": {
+      "client-1": { "value": 0, "pending": 0, "revision": 0 },
+      "client-2": { "value": 0, "pending": 0, "revision": 0 },
+      "client-3": { "value": 0, "pending": 0, "revision": 0 }
+    }
+  },
+  "timeline": [
+    { "index": 0, "elapsedMs": 787, "step": { "kind": "act", "client": 0, "action": { "type": "increment", "amount": 1 } } }
+  ]
+}

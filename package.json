@@ -5,16 +5,18 @@
   "description": "Vendor-neutral multi-client convergence testing falsification proof",
   "type": "module",
   "bin": {
-    "syncfuzz": "./dist/cli.js"
+    "syncfuzz": "./dist/src/cli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --maxWorkers=1",
     "test:browser": "tsx src/cli.ts smoke",
+    "syncfuzz": "tsx src/cli.ts",
     "demo": "tsx src/cli.ts demo --fixture websocket --seed 4242 --mutant ws-drop-first-outbound",
     "proof": "tsx src/cli.ts proof",
-    "campaign": "tsx src/cli.ts campaign --fixture websocket --runs 50 --clients 3 --workers 4"
+    "campaign": "tsx src/cli.ts campaign --fixture websocket --runs 50 --clients 3 --workers 4",
+    "verify": "pnpm check && pnpm test && pnpm test:browser && pnpm build"
   },
   "engines": {
     "node": ">=22"

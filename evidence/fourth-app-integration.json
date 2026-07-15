@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "app": "storage-polling synthetic browser fixture",
+  "startedAt": "2026-07-15T19:21:55Z",
+  "completedAt": "2026-07-15T19:23:37Z",
+  "elapsedSeconds": 102,
+  "elapsedMinutes": 1.7,
+  "baselineCommit": "5c1e2cc",
+  "coreDiff": {
+    "filesChanged": 3,
+    "insertions": 4,
+    "deletions": 2,
+    "files": [
+      "fixtures/server.ts",
+      "src/cli.ts",
+      "src/types.ts"
+    ]
+  },
+  "fixtureSpecificFiles": [
+    "fixtures/storage/manifest.ts",
+    "fixtures/storage/README.md",
+    "tests/storage-integration.test.ts"
+  ],
+  "verification": {
+    "command": "vitest run tests/storage-integration.test.ts --maxWorkers=1",
+    "result": "passed",
+    "clients": 3,
+    "scenario": "two semantic increments, third-client reload, convergence checkpoint"
+  },
+  "claimBoundary": "Measures integration of a purpose-built fourth fixture against an already-defined browser contract; it does not measure an unfamiliar production application."
+}

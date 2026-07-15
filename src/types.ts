@@ -1,6 +1,6 @@
 import type { BrowserContext, Page } from "playwright";
 
-export type FixtureName = "websocket" | "sse" | "rest";
+export type FixtureName = "websocket" | "sse" | "rest" | "storage";
 
 export type SemanticAction = {
   type: "increment";

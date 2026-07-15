@@ -1,0 +1,370 @@
+{
+  "generatedAt": "2026-07-15T19:40:22.853Z",
+  "verdict": "All technical gates passed on synthetic local fixtures.",
+  "gates": [
+    {
+      "name": "Fault detection",
+      "status": "pass",
+      "evidence": "20/20 seeded mutants detected across WebSocket, SSE, and REST synthetic fixtures."
+    },
+    {
+      "name": "Replay stability",
+      "status": "pass",
+      "evidence": "20/20 minimized failures reproduced (100.0%)."
+    },
+    {
+      "name": "Fourth-app integration",
+      "status": "pass",
+      "evidence": "A fourth synthetic storage/polling app integrated in 1.7 minutes with 4 insertions and 2 deletions across 3 core files. This is not a production-app timing claim."
+    },
+    {
+      "name": "PR runtime",
+      "status": "pass",
+      "evidence": "50 schedules, three clients, four workers completed in 26.26 s (42 passed, 8 failed, 0 errors)."
+    },
+    {
+      "name": "Novel actionable failure",
+      "status": "pass",
+      "evidence": "Baseline WebSocket fixture silently loses a dropped outbound operation when an unrelated inbound snapshot clears pending state; its declared single-client happy-path test does not exercise message loss. This is a synthetic-fixture finding, not a production bug."
+    }
+  ],
+  "measurements": {
+    "seededFaults": {
+      "detected": 20,
+      "total": 20,
+      "byFixture": {
+        "websocket": 7,
+        "sse": 6,
+        "rest": 7
+      }
+    },
+    "replay": {
+      "reproduced": 20,
+      "attempted": 20,
+      "rate": 1
+    },
+    "shrink": {
+      "averageOriginalSteps": 5,
+      "averageMinimizedSteps": 1
+    },
+    "campaign": {
+      "fixture": "websocket",
+      "runs": 50,
+      "clients": 3,
+      "workers": 4,
+      "passed": 42,
+      "failed": 8,
+      "errors": 0,
+      "wallMs": 26260,
+      "p50ScheduleMs": 1771,
+      "p95ScheduleMs": 3022
+    },
+    "integration": {
+      "schemaVersion": 1,
+      "app": "storage-polling synthetic browser fixture",
+      "startedAt": "2026-07-15T19:21:55Z",
+      "completedAt": "2026-07-15T19:23:37Z",
+      "elapsedSeconds": 102,
+      "elapsedMinutes": 1.7,
+      "baselineCommit": "5c1e2cc",
+      "coreDiff": {
+        "filesChanged": 3,
+        "insertions": 4,
+        "deletions": 2,
+        "files": [
+          "fixtures/server.ts",
+          "src/cli.ts",
+          "src/types.ts"
+        ]
+      },
+      "fixtureSpecificFiles": [
+        "fixtures/storage/manifest.ts",
+        "fixtures/storage/README.md",
+        "tests/storage-integration.test.ts"
+      ],
+      "verification": {
+        "command": "vitest run tests/storage-integration.test.ts --maxWorkers=1",
+        "result": "passed",
+        "clients": 3,
+        "scenario": "two semantic increments, third-client reload, convergence checkpoint"
+      },
+      "claimBoundary": "Measures integration of a purpose-built fourth fixture against an already-defined browser contract; it does not measure an unfamiliar production application."
+    },
+    "novelFailure": {
+      "status": "failed",
+      "failures": [
+        {
+          "invariant": "semantic-model",
+          "message": "canonical value differs from accepted semantic total 2",
+          "snapshots": {
+            "client-1": {
+              "value": 1,
+              "pending": 0,
+              "revision": 1
+            },
+            "client-2": {
+              "value": 1,
+              "pending": 0,
+              "revision": 1
+            },
+            "client-3": {
+              "value": 1,
+              "pending": 0,
+              "revision": 1
+            }
+          }
+        }
+      ],
+      "existingTestScope": "single-client happy path"
+    }
+  },
+  "limitations": [
+    "All four target applications are purpose-built micro-fixtures, not third-party production repositories.",
+    "The 20 faults are disclosed seeded implementation mutants; detection does not estimate real-world defect prevalence.",
+    "Traffic delay/drop controls are application-level shims; offline, reload, and process death use Playwright browser controls.",
+    "Quiescence and canonical snapshots are application-defined, as they must be for a vendor-neutral adapter.",
+    "No demand, pricing, hosted-service, mobile-device, service-worker, remote-queue, or credentialed integration claim is made."
+  ],
+  "faults": [
+    {
+      "id": "websocket-drop-first-outbound",
+      "fixture": "websocket",
+      "mutant": "websocket-drop-first-outbound",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 3875,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-drop-first-outbound.json"
+    },
+    {
+      "id": "websocket-duplicate-first-op",
+      "fixture": "websocket",
+      "mutant": "websocket-duplicate-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1572,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-duplicate-first-op.json"
+    },
+    {
+      "id": "websocket-reverse-first-op",
+      "fixture": "websocket",
+      "mutant": "websocket-reverse-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 2171,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-reverse-first-op.json"
+    },
+    {
+      "id": "websocket-zero-first-op",
+      "fixture": "websocket",
+      "mutant": "websocket-zero-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 724,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-zero-first-op.json"
+    },
+    {
+      "id": "websocket-ignore-client-2",
+      "fixture": "websocket",
+      "mutant": "websocket-ignore-client-2",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1213,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-ignore-client-2.json"
+    },
+    {
+      "id": "websocket-stale-client-2",
+      "fixture": "websocket",
+      "mutant": "websocket-stale-client-2",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1856,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-stale-client-2.json"
+    },
+    {
+      "id": "websocket-revision-skew-client-1",
+      "fixture": "websocket",
+      "mutant": "websocket-revision-skew-client-1",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 2,
+      "replayed": true,
+      "durationMs": 1227,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/websocket-revision-skew-client-1.json"
+    },
+    {
+      "id": "sse-drop-first-outbound",
+      "fixture": "sse",
+      "mutant": "sse-drop-first-outbound",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1784,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-drop-first-outbound.json"
+    },
+    {
+      "id": "sse-duplicate-first-op",
+      "fixture": "sse",
+      "mutant": "sse-duplicate-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1016,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-duplicate-first-op.json"
+    },
+    {
+      "id": "sse-reverse-first-op",
+      "fixture": "sse",
+      "mutant": "sse-reverse-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 871,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-reverse-first-op.json"
+    },
+    {
+      "id": "sse-ignore-client-2",
+      "fixture": "sse",
+      "mutant": "sse-ignore-client-2",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 5,
+      "replayed": true,
+      "durationMs": 936,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-ignore-client-2.json"
+    },
+    {
+      "id": "sse-stale-client-2",
+      "fixture": "sse",
+      "mutant": "sse-stale-client-2",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 875,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-stale-client-2.json"
+    },
+    {
+      "id": "sse-skew-client-3",
+      "fixture": "sse",
+      "mutant": "sse-skew-client-3",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 2,
+      "replayed": true,
+      "durationMs": 842,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/sse-skew-client-3.json"
+    },
+    {
+      "id": "rest-drop-first-outbound",
+      "fixture": "rest",
+      "mutant": "rest-drop-first-outbound",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 785,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-drop-first-outbound.json"
+    },
+    {
+      "id": "rest-duplicate-first-op",
+      "fixture": "rest",
+      "mutant": "rest-duplicate-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1009,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-duplicate-first-op.json"
+    },
+    {
+      "id": "rest-reverse-first-op",
+      "fixture": "rest",
+      "mutant": "rest-reverse-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 957,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-reverse-first-op.json"
+    },
+    {
+      "id": "rest-zero-first-op",
+      "fixture": "rest",
+      "mutant": "rest-zero-first-op",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 790,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-zero-first-op.json"
+    },
+    {
+      "id": "rest-ignore-client-2",
+      "fixture": "rest",
+      "mutant": "rest-ignore-client-2",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 914,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-ignore-client-2.json"
+    },
+    {
+      "id": "rest-stale-client-2",
+      "fixture": "rest",
+      "mutant": "rest-stale-client-2",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 3,
+      "replayed": true,
+      "durationMs": 1536,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-stale-client-2.json"
+    },
+    {
+      "id": "rest-revision-skew-client-1",
+      "fixture": "rest",
+      "mutant": "rest-revision-skew-client-1",
+      "detected": true,
+      "originalSteps": 5,
+      "minimizedSteps": 1,
+      "shrinkAttempts": 2,
+      "replayed": true,
+      "durationMs": 1114,
+      "artifact": "/Users/guts/Documents/Codex/2026-07-15/syncfuzz-proof/output/playwright/faults/rest-revision-skew-client-1.json"
+    }
+  ]
+}

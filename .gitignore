@@ -2,5 +2,6 @@ node_modules/
 dist/
 artifacts/
 output/playwright/
+work/
 *.log
 .DS_Store

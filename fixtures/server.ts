@@ -52,6 +52,7 @@ async function accept(snapshot){
   if(control.dropInbound>0){control.dropInbound--;return;}
   if(control.inboundDelay) await sleep(control.inboundDelay);
   state.value=snapshot.value;state.revision=snapshot.revision;state.pending=0;render();
+  if(fixture==='storage') localStorage.setItem('syncfuzz-state',JSON.stringify(snapshot));
 }
 function op(amount){return {type:'op',opId:clientId+'-'+(++sequence),clientId,delta:amount,at:Date.now()+clockSkew};}
 async function sendHttp(payload){
@@ -84,6 +85,7 @@ async function poll(){
 if(fixture==='websocket')connectWebSocket();
 else if(fixture==='sse')connectSse();
 else {
+  if(fixture==='storage'){const saved=localStorage.getItem('syncfuzz-state');if(saved)accept(JSON.parse(saved));}
   pollTimer=setInterval(poll,25);poll();
 }
 document.querySelector('#increment').onclick=()=>act({type:'increment',amount:1});
