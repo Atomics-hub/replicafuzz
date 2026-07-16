@@ -1,5 +1,12 @@
 # ReplicaFuzz
 
+[![npm version](https://img.shields.io/npm/v/replicafuzz?label=npm)](https://www.npmjs.com/package/replicafuzz)
+[![CI](https://github.com/Atomics-hub/replicafuzz/actions/workflows/ci.yml/badge.svg)](https://github.com/Atomics-hub/replicafuzz/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+Browser-based multi-client convergence fuzzing for collaborative, local-first,
+and offline-first applications.
+
 ReplicaFuzz is an experimental local falsification harness that asks one
 question: after several real browser clients act under adverse schedules, do
 their application-defined canonical states converge and still match the
@@ -14,6 +21,17 @@ The core targets are synthetic micro-apps that make the harness testable. A
 separate external adapter now exercises unmodified Etherpad 3.3.2 and records a
 minimized post-reconnect UI-readiness failure. One production application is
 evidence of portability, not broad vendor-neutral coverage.
+
+## Install from npm
+
+```sh
+npm install --save-dev replicafuzz@alpha
+npx playwright install chromium
+npx replicafuzz smoke
+```
+
+Node 22 or newer is required. The package runs locally and does not require an
+account or hosted service.
 
 ## Five-second demo
 
