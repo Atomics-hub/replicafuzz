@@ -3,6 +3,14 @@
 This alpha adds the first unfamiliar production-application proof without
 turning ReplicaFuzz into a hosted platform.
 
+## Install
+
+```sh
+npm install --save-dev replicafuzz@alpha
+npx playwright install chromium
+npx replicafuzz smoke
+```
+
 ## Added
 
 - An external adapter for unmodified Etherpad 3.3.2 at upstream commit
@@ -31,4 +39,7 @@ This is one local default Etherpad deployment without plugins, authentication,
 reverse proxies, or a production database. Packet loss/delay, clock injection,
 and server death remain unsupported in this adapter. The finding is an
 actionable candidate, not a maintainer-confirmed upstream bug. npm publication
-is a separate credential and interactive-authentication gate.
+was completed after the release assets were generated; the public package is
+`replicafuzz@0.1.0-alpha.2`. The release-asset proof report preserves its
+pre-publication timestamp, while the current final report on `main` records the
+verified npm installation.
