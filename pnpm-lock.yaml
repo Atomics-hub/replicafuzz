@@ -19,7 +19,7 @@ importers:
         version: 8.21.1
       yjs:
         specifier: ^13.6.31
-        version: 13.6.31
+        version: 13.6.32
     devDependencies:
       '@types/node':
         specifier: ^24.0.0
@@ -652,8 +652,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  yjs@13.6.31:
-    resolution: {integrity: sha512-Eq+5BRfbeGyqGVrTJL3bEcr8gKkxPuyuoHmAwpk52fDb8kOVMrfVSTRPd6yiGgX5Fskb96qCRjzjbRjrL4YEnw==}
+  yjs@13.6.32:
+    resolution: {integrity: sha512-lfiJIIC4Xayt5ItynE407ehlE03pCjeOc4hkR4yxxvvNJ4kuiN25B0g+Qp8XagYz361LLL7DCzR5bvFJ81QKtQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
 
 snapshots:
@@ -1135,6 +1135,6 @@ snapshots:
 
   ws@8.21.1: {}
 
-  yjs@13.6.31:
+  yjs@13.6.32:
     dependencies:
       lib0: 0.2.117
